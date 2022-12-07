@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="818.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
       <Label layoutX="374.0" layoutY="34.0" text="Sistem Parkir">
@@ -25,18 +24,18 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="852.0">
                      <children>
-                        <TableView layoutX="88.0" layoutY="166.0" prefHeight="288.0" prefWidth="663.0">
+                        <TableView fx:id="tableview1" layoutX="88.0" layoutY="166.0" prefHeight="365.0" prefWidth="663.0">
                           <columns>
-                            <TableColumn prefWidth="125.0" text="No Tiket" />
-                            <TableColumn minWidth="0.0" prefWidth="141.0" text="No Pol" />
-                              <TableColumn prefWidth="104.0" text="Jenis" />
-                              <TableColumn prefWidth="152.0" text="Tanggal Masuk" />
-                              <TableColumn prefWidth="140.0" text="Jam Masuk" />
+                            <TableColumn fx:id="noTiketColumn" prefWidth="125.0" text="No Tiket" />
+                            <TableColumn fx:id="noPolColumn" minWidth="0.0" prefWidth="141.0" text="No Pol" />
+                              <TableColumn fx:id="jenisColumn" prefWidth="104.0" text="Jenis" />
+                              <TableColumn fx:id="tgglMasukColumn" prefWidth="152.0" text="Tanggal Masuk" />
+                              <TableColumn fx:id="jamMasukColumn" prefWidth="140.0" text="Jam Masuk" />
                           </columns>
                         </TableView>
                         <Label layoutX="152.0" layoutY="52.0" text="No Pol" />
                         <TextField fx:id="noPol_Masuk" layoutX="269.0" layoutY="48.0" />
-                        <Label layoutX="152.0" layoutY="106.0" text="Label" />
+                        <Label layoutX="152.0" layoutY="106.0" text="Jenis" />
                         <ChoiceBox fx:id="myChoiceBox" layoutX="269.0" layoutY="102.0" prefWidth="150.0" />
                         <Button layoutX="580.0" layoutY="73.0" mnemonicParsing="false" onAction="#simpan" text="Simpan Parkiran" />
                      </children>
@@ -58,23 +57,23 @@
                            </columns>
                         </TableView>
                         <Label layoutX="32.0" layoutY="28.0" text="No Pol" />
-                        <TextField layoutX="112.0" layoutY="24.0" prefHeight="25.0" prefWidth="336.0" />
+                        <TextField fx:id="noPol_Keluar" layoutX="112.0" layoutY="24.0" prefHeight="25.0" prefWidth="336.0" />
                         <Label layoutX="33.0" layoutY="63.0" text="No Tiket" />
-                        <TextField editable="false" layoutX="112.0" layoutY="59.0" prefHeight="25.0" prefWidth="337.0" />
+                        <TextField fx:id="noTiket" editable="false" layoutX="112.0" layoutY="59.0" prefHeight="25.0" prefWidth="337.0" />
                         <Label layoutX="31.0" layoutY="99.0" text="Jenis" />
                         <Label layoutX="26.0" layoutY="143.0" text="Tggl Masuk" />
-                        <TextField editable="false" layoutX="112.0" layoutY="95.0" prefHeight="25.0" prefWidth="338.0" />
-                        <TextField editable="false" layoutX="112.0" layoutY="139.0" prefHeight="25.0" prefWidth="203.0" />
+                        <TextField fx:id="jenisButton" editable="false" layoutX="112.0" layoutY="95.0" prefHeight="25.0" prefWidth="338.0" />
+                        <TextField fx:id="tgglMasuk" editable="false" layoutX="112.0" layoutY="139.0" prefHeight="25.0" prefWidth="203.0" />
                         <Label layoutX="344.0" layoutY="143.0" text="Jam Masuk" />
-                        <TextField editable="false" layoutX="426.0" layoutY="139.0" prefHeight="25.0" prefWidth="219.0" />
+                        <TextField fx:id="jamMasuk" editable="false" layoutX="426.0" layoutY="139.0" prefHeight="25.0" prefWidth="219.0" />
                         <Label layoutX="26.0" layoutY="186.0" text="Durasi Hari" />
-                        <TextField editable="false" layoutX="112.0" layoutY="182.0" prefHeight="25.0" prefWidth="203.0" />
+                        <TextField fx:id="durasiHari" editable="false" layoutX="112.0" layoutY="182.0" prefHeight="25.0" prefWidth="203.0" />
                         <Label layoutX="344.0" layoutY="186.0" text="Durasi Jam" />
-                        <TextField editable="false" layoutX="426.0" layoutY="182.0" prefHeight="25.0" prefWidth="219.0" />
+                        <TextField fx:id="durasiJam" editable="false" layoutX="426.0" layoutY="182.0" prefHeight="25.0" prefWidth="219.0" />
                         <Label layoutX="26.0" layoutY="232.0" text="Biaya Parkir" />
-                        <TextField editable="false" layoutX="112.0" layoutY="228.0" prefHeight="25.0" prefWidth="337.0" />
-                        <Button layoutX="536.0" layoutY="228.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="218.0" text="Keluar Parkiran" />
-                        <Button layoutX="611.0" layoutY="24.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="127.0" text="Cari" />
+                        <TextField fx:id="biayaParkir" editable="false" layoutX="112.0" layoutY="228.0" prefHeight="25.0" prefWidth="337.0" />
+                        <Button fx:id="keluar" layoutX="536.0" layoutY="228.0" mnemonicParsing="false" onAction="#keluar" prefHeight="25.0" prefWidth="218.0" text="Keluar Parkiran" />
+                        <Button fx:id="cari1" layoutX="581.0" layoutY="29.0" mnemonicParsing="false" onAction="#cari" prefHeight="85.0" prefWidth="129.0" text="Cari" />
                      </children>
                   </AnchorPane>
             </content>
