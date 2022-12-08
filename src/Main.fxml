@@ -46,14 +46,14 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="31.0" layoutY="295.0" prefHeight="363.0" prefWidth="791.0">
+                        <TableView fx:id="tableview2" layoutX="31.0" layoutY="295.0" prefHeight="363.0" prefWidth="791.0">
                            <columns>
-                              <TableColumn prefWidth="125.0" text="No Tiket" />
-                              <TableColumn minWidth="0.0" prefWidth="141.0" text="No Pol" />
-                              <TableColumn prefWidth="104.0" text="Jenis" />
-                              <TableColumn prefWidth="152.0" text="Tanggal Keluar" />
-                              <TableColumn prefWidth="140.0" text="Jam Keluar" />
-                              <TableColumn prefWidth="131.0" text="Biaya" />
+                              <TableColumn fx:id="noTiketColumn2" prefWidth="125.0" text="No Tiket" />
+                              <TableColumn fx:id="noPolColumn2" minWidth="0.0" prefWidth="141.0" text="No Pol" />
+                              <TableColumn fx:id="jenisColumn2" prefWidth="104.0" text="Jenis" />
+                              <TableColumn fx:id="tgglKeluarColumn2" prefWidth="152.0" text="Tanggal Keluar" />
+                              <TableColumn fx:id="jamKeluarColumn2" prefWidth="140.0" text="Jam Keluar" />
+                              <TableColumn fx:id="biayaColumn2" prefWidth="131.0" text="Biaya" />
                            </columns>
                         </TableView>
                         <Label layoutX="32.0" layoutY="28.0" text="No Pol" />

@@ -25,6 +25,9 @@ public class Controller implements Initializable {
     private TableView<Table1> tableview1;
 
     @FXML
+    private TableView<Table2> tableview2;
+
+    @FXML
     private TableColumn<Table1, String> noPolColumn, jenisColumn;
 
     @FXML
@@ -35,6 +38,18 @@ public class Controller implements Initializable {
 
     @FXML
     private TableColumn<Table1, Time> jamMasukColumn;
+
+    @FXML
+    private TableColumn<Table2, String> noPolColumn2, jenisColumn2;
+
+    @FXML
+    private TableColumn<Table2, Integer> noTiketColumn2, biayaColumn2;
+
+    @FXML
+    private TableColumn<Table2, Date> tgglKeluarColumn2;
+
+    @FXML
+    private TableColumn<Table2, Time> jamKeluarColumn2;
 
 
     @FXML
@@ -59,21 +74,41 @@ public class Controller implements Initializable {
         tgglMasukColumn.setCellValueFactory(new PropertyValueFactory<Table1, Date>("tggl_masuk"));
         jamMasukColumn.setCellValueFactory(new PropertyValueFactory<Table1, Time>("jam_masuk"));
 
+        noTiketColumn2.setCellValueFactory(new PropertyValueFactory<Table2, Integer>("no_tiket"));
+        noPolColumn2.setCellValueFactory(new PropertyValueFactory<Table2, String>("noPol"));
+        jenisColumn2.setCellValueFactory(new PropertyValueFactory<Table2, String>("jenis"));
+        tgglKeluarColumn2.setCellValueFactory(new PropertyValueFactory<Table2, Date>("tggl_keluar"));
+        jamKeluarColumn2.setCellValueFactory(new PropertyValueFactory<Table2, Time>("jam_keluar"));
+        biayaColumn2.setCellValueFactory(new PropertyValueFactory<Table2, Integer>("biaya"));
+
         Connection c = null;
         Statement stmt = null;
+        Statement stmt2 = null;
 
         try{
             Class.forName("org.postgresql.Driver");
             c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parkingsystem", "postgres", "@Randy2003");
             c.setAutoCommit(false);
             stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM INFO_MASUK");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM INFO_MASUK ORDER BY NO_TIKET ASC");
             ObservableList <Table1> info1 = tableview1.getItems();
+
             while (rs.next()){
                 Table1 data1 = new Table1(rs.getString("JENIS"), rs.getString("NOPOL"), rs.getInt("NO_TIKET"), rs.getDate("TGGL_MASUK"), rs.getTime("JAM_MASUK"));
                 info1.add(data1);
             }
             tableview1.setItems(info1);
+
+            stmt2 = c.createStatement();
+            ResultSet rs2 = stmt2.executeQuery("SELECT * FROM INFO_MASUK WHERE BIAYA IS NOT NULL ORDER BY NO_TIKET ASC");
+            ObservableList <Table2> info2 = tableview2.getItems();
+
+            while (rs2.next()){
+                Table2 data2 = new Table2(rs2.getString("JENIS"), rs2.getString("NOPOL"), rs2.getInt("NO_TIKET"), rs2.getDate("TGGL_KELUAR"), rs2.getTime("JAM_KELUAR"), rs2.getInt("BIAYA"));
+                info2.add(data2);
+            }
+            tableview2.setItems(info2);
+
         }catch (Exception err){
             System.err.println( err.getClass().getName()+": "+ err.getMessage() );
             return;
@@ -151,6 +186,7 @@ public class Controller implements Initializable {
     public void keluar(ActionEvent e){
         Connection c = null;
         Statement stmt = null;
+        Statement stmt2 = null;
         if (biayaParkir.getText().length() == 0 || noTiket.getText().length() == 0){
             return;
         }
@@ -160,7 +196,14 @@ public class Controller implements Initializable {
             c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/parkingsystem", "postgres", "@Randy2003");
             c.setAutoCommit(false);
             stmt = c.createStatement();
+            stmt2 = c.createStatement();
             stmt.executeUpdate(String.format("UPDATE INFO_MASUK SET TGGL_KELUAR = CURRENT_DATE, JAM_KELUAR = CURRENT_TIME, BIAYA = %d WHERE NO_TIKET = %d;", Integer.parseInt(biayaParkir.getText()), Integer.parseInt(noTiket.getText())));
+            ObservableList <Table2> info2 = tableview2.getItems();
+            ResultSet rs2 = stmt2.executeQuery(String.format("SELECT * FROM INFO_MASUK WHERE NO_TIKET = %d", Integer.parseInt(noTiket.getText())));
+            rs2.next();
+            Table2 data2 = new Table2(rs2.getString("JENIS"), rs2.getString("NOPOL"), rs2.getInt("NO_TIKET"), rs2.getDate("TGGL_KELUAR"), rs2.getTime("JAM_KELUAR"), rs2.getInt("BIAYA"));
+            info2.add(data2);
+            tableview2.setItems(info2);
             stmt.close();
             c.commit();
             c.close();
